@@ -11,8 +11,8 @@
 
 <style>
 :root {
-    /* Set this to your app background color */
-    --theme-bg: #064e3b; 
+    /* Fallback theme color */
+    --bg-color: #2b1d48; 
 }
 
 html,
@@ -35,22 +35,22 @@ body {
     border-radius: 22px;
     cursor: pointer;
 
-    /* 100% Solid Color Base - Fully Opaque */
-    background-color: var(--theme-bg);
-
-    /* Applies a solid surface blur without making it see-through */
-    filter: url('#solid-blur');
-    -webkit-filter: url('#solid-blur');
+    /* Completely solid background derived from the theme color */
+    background-color: var(--bg-color);
 
     -webkit-tap-highlight-color: transparent;
 
-    /* Inset Carved Shadows built from the solid background */
+    /* 
+       Carved depth created entirely by blending highlights and shadows 
+       into the base color (no transparency or blur required)
+    */
     box-shadow:
-        inset 6px 6px 12px color-mix(in srgb, var(--theme-bg) 30%, #000000),
-        inset -4px -4px 8px color-mix(in srgb, var(--theme-bg) 75%, #ffffff);
+        inset 5px 5px 10px color-mix(in srgb, var(--bg-color) 40%, #000000),
+        inset -4px -4px 8px color-mix(in srgb, var(--bg-color) 70%, #ffffff);
 
     transition:
         transform 0.12s ease,
+        background-color 0.15s ease,
         box-shadow 0.12s ease;
 }
 
@@ -63,8 +63,8 @@ body {
     transform: scale(0.985);
 
     box-shadow:
-        inset 8px 8px 16px color-mix(in srgb, var(--theme-bg) 20%, #000000),
-        inset -3px -3px 6px color-mix(in srgb, var(--theme-bg) 85%, #ffffff);
+        inset 7px 7px 14px color-mix(in srgb, var(--bg-color) 25%, #000000),
+        inset -3px -3px 6px color-mix(in srgb, var(--bg-color) 85%, #ffffff);
 }
 
 .carved-button:focus {
@@ -75,15 +75,6 @@ body {
 
 <body>
 
-<!-- Hidden SVG filter that creates a solid surface blur -->
-<svg style="display:none;">
-  <defs>
-    <filter id="solid-blur">
-      <feGaussianBlur stdDeviation="6" />
-    </filter>
-  </defs>
-</svg>
-
 <button
     class="carved-button"
     aria-label="Button"
@@ -91,6 +82,15 @@ body {
 </button>
 
 <script>
+// Automatically checks the URL query parameters for a color hex passed from Adalo
+// Example usage in Adalo component URL/HTML: component.html?color=2b1d48
+const urlParams = new URLSearchParams(window.location.search);
+const themeColor = urlParams.get('color');
+
+if (themeColor) {
+    document.documentElement.style.setProperty('--bg-color', '#' + themeColor.replace('#', ''));
+}
+
 function buttonPressed() {
     // Your action here
 }
