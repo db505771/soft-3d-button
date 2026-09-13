@@ -30,25 +30,18 @@ body {
     border-radius: 22px;
     cursor: pointer;
 
-    /* Subtle backdrop blur combined with color brightness adjustment */
-    backdrop-filter: blur(8px) brightness(0.82) contrast(1.1);
-    -webkit-backdrop-filter: blur(8px) brightness(0.82) contrast(1.1);
-    
-    /* Fallback base tint */
-    background: rgba(0, 0, 0, 0.12);
+    /* Completely transparent so it inherits the exact screen background color */
+    background: transparent;
 
     -webkit-tap-highlight-color: transparent;
 
-    /* Crisp Carved Inset Edge Shadows */
+    /* Dark inner shadow (top-left) + Subtle light reflection (bottom-right) */
     box-shadow:
-        inset 4px 4px 10px rgba(0, 0, 0, 0.65),
-        inset 1px 1px 2px rgba(0, 0, 0, 0.80),
-        inset -3px -3px 8px rgba(255, 255, 255, 0.12),
-        inset -1px -1px 2px rgba(255, 255, 255, 0.20);
+        inset 5px 5px 10px rgba(0, 0, 0, 0.60),
+        inset -3px -3px 8px rgba(255, 255, 255, 0.12);
 
     transition:
         transform 0.12s ease,
-        backdrop-filter 0.12s ease,
         box-shadow 0.12s ease;
 }
 
@@ -59,15 +52,12 @@ body {
 
 /* Pressed State */
 .carved-button:active {
-    backdrop-filter: blur(10px) brightness(0.75) contrast(1.15);
-    -webkit-backdrop-filter: blur(10px) brightness(0.75) contrast(1.15);
     transform: scale(0.985);
 
-    /* Deeper shadow on press */
+    /* Deeper inner shadow when tapped */
     box-shadow:
-        inset 6px 6px 14px rgba(0, 0, 0, 0.75),
-        inset 2px 2px 4px rgba(0, 0, 0, 0.90),
-        inset -2px -2px 6px rgba(255, 255, 255, 0.08);
+        inset 7px 7px 14px rgba(0, 0, 0, 0.75),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.08);
 }
 
 .carved-button:focus {
@@ -79,7 +69,7 @@ body {
 <body>
 
 <button
-    class="carved-button"
+    class="button carved-button"
     aria-label="Button"
     onclick="buttonPressed()">
 </button>
