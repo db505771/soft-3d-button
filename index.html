@@ -1,48 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /* Reset margins and ensure html/body fill the viewport */
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
+<meta charset="UTF-8">
 
-        /* FULLSCREEN SOFT 3D BUTTON SKIN */
-        .soft-3d-button {
-            width: 100%;
-            height: 100%;
-            border-radius: 0;
-            border: none;
-            cursor: pointer;
-            outline: none;
-            
-            /* Dynamically blends with whatever background color surrounds it */
-            background-color: inherit;
-            box-shadow: 
-                6px 6px 12px color-mix(in srgb, currentColor 50%, #000000),
-                -6px -6px 12px color-mix(in srgb, currentColor 70%, #ffffff);
-            
-            transition: all 0.15s ease;
-        }
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
 
-        /* Pressed State */
-        .soft-3d-button:active {
-            box-shadow: 
-                inset 5px 5px 10px color-mix(in srgb, currentColor 50%, #000000),
-                inset -5px -5px 10px color-mix(in srgb, currentColor 70%, #ffffff);
-            transform: scale(0.99);
-        }
-    </style>
+<style>
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    background: transparent;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+}
+
+/* Entire Web View is the button */
+.button {
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    border: 0;
+    outline: 0;
+
+    background: rgba(43, 29, 72, 0.58);
+
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+
+    /*
+       Soft 3D depth.
+       The shadows make the translucent surface
+       appear much more solid than it actually is.
+    */
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        inset 0 -1px 0 rgba(0,0,0,0.10),
+        7px 7px 16px rgba(18,10,34,0.35),
+        -7px -7px 16px rgba(91,67,128,0.20);
+
+    transition:
+        transform 0.12s ease,
+        background 0.12s ease,
+        box-shadow 0.12s ease;
+}
+
+/* Pressed */
+.button:active {
+    background: rgba(43, 29, 72, 0.66);
+
+    transform: scale(0.985);
+
+    box-shadow:
+        inset 5px 5px 10px rgba(18,10,34,0.35),
+        inset -5px -5px 10px rgba(91,67,128,0.16);
+}
+
+/* Removes the ugly blue focus outline on iOS */
+.button:focus {
+    outline: none;
+}
+</style>
 </head>
+
 <body>
 
-    <button class="soft-3d-button"></button>
+<button
+    class="button"
+    aria-label="Button"
+    onclick="buttonPressed()">
+</button>
+
+<script>
+function buttonPressed() {
+
+    /*
+       Your Adalo/Web View action goes here.
+    */
+
+}
+</script>
 
 </body>
 </html>
