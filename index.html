@@ -1,100 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Carved Liquid Groove</title>
+  <style>
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: transparent !important;
+      overflow: hidden;
+    }
 
-<meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
+    .carved-liquid-groove {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
 
-<style>
-:root {
-    /* Fallback theme color */
-    --bg-color: #2b1d48; 
-}
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+      padding: 0;
+      margin: 0;
+      display: block;
+      cursor: pointer;
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background: transparent;
-}
+      /* Smooth rounded corners */
+      border-radius: 22px;
+      overflow: hidden;
 
-.carved-button {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    outline: none;
-    border-radius: 22px;
-    cursor: pointer;
+      /* CLIPPING FIX: Forces the WebKit engine to cleanly composite parent pixels under the blur */
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
 
-    /* Completely solid background derived from the theme color */
-    background-color: var(--bg-color);
+      /* Direct background tint using dark overlay gradient for cavity depth */
+      background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.35) 0%,
+        rgba(0, 0, 0, 0.15) 100%
+      );
 
-    -webkit-tap-highlight-color: transparent;
+      /* Native Backdrop Blur + Saturation boost to make underlying app colors pop inside the groove */
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
 
-    /* 
-       Carved depth created entirely by blending highlights and shadows 
-       into the base color (no transparency or blur required)
-    */
-    box-shadow:
-        inset 5px 5px 10px color-mix(in srgb, var(--bg-color) 40%, #000000),
-        inset -4px -4px 8px color-mix(in srgb, var(--bg-color) 70%, #ffffff);
+      border: none;
 
-    transition:
-        transform 0.12s ease,
-        background-color 0.15s ease,
-        box-shadow 0.12s ease;
-}
+      /* CARVED INSET SHADOWS: Dark top-left cavity shadow + subtle light bottom-right rim reflection */
+      box-shadow: 
+        inset 4px 4px 10px rgba(0, 0, 0, 0.65),
+        inset 1px 1px 2px rgba(0, 0, 0, 0.80),
+        inset -3px -3px 8px rgba(255, 255, 255, 0.15),
+        inset -1px -1px 2px rgba(255, 255, 255, 0.25);
 
-body {
-    clip-path: inset(0 round 22px);
-}
+      /* Touch Feedback */
+      transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-/* Pressed State */
-.carved-button:active {
-    transform: scale(0.985);
+    .carved-liquid-groove:active {
+      transform: scale(0.985);
 
-    box-shadow:
-        inset 7px 7px 14px color-mix(in srgb, var(--bg-color) 25%, #000000),
-        inset -3px -3px 6px color-mix(in srgb, var(--bg-color) 85%, #ffffff);
-}
+      /* Sinks deeper on press */
+      background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.45) 0%,
+        rgba(0, 0, 0, 0.25) 100%
+      );
 
-.carved-button:focus {
-    outline: none;
-}
-</style>
+      box-shadow: 
+        inset 6px 6px 14px rgba(0, 0, 0, 0.75),
+        inset 2px 2px 4px rgba(0, 0, 0, 0.90),
+        inset -2px -2px 6px rgba(255, 255, 255, 0.10);
+    }
+  </style>
 </head>
-
 <body>
 
-<button
-    class="carved-button"
-    aria-label="Button"
-    onclick="buttonPressed()">
-</button>
+  <button class="carved-liquid-groove" type="button" onclick="buttonPressed()"></button>
 
-<script>
-// Automatically checks the URL query parameters for a color hex passed from Adalo
-// Example usage in Adalo component URL/HTML: component.html?color=2b1d48
-const urlParams = new URLSearchParams(window.location.search);
-const themeColor = urlParams.get('color');
-
-if (themeColor) {
-    document.documentElement.style.setProperty('--bg-color', '#' + themeColor.replace('#', ''));
-}
-
-function buttonPressed() {
-    // Your action here
-}
-</script>
-
+  <script>
+    function buttonPressed() {
+      // Your Adalo action trigger goes here
+    }
+  </script>
 </body>
 </html>
