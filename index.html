@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<style>
+:root {
+    /* Change this hex code to match your screen background color (e.g. #064e3b for green, #2b1d48 for purple) */
+    --bg-color: #064e3b; 
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: transparent;
+}
+
+.carved-button {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 22px;
+    cursor: pointer;
+
+    /* 100% Solid background color - no transparency or blur */
+    background-color: var(--bg-color);
+
+    -webkit-tap-highlight-color: transparent;
+
+    /* Pure Inset Carved Shadows calculated directly from the base color */
+    box-shadow:
+        inset 5px 5px 10px color-mix(in srgb, var(--bg-color) 35%, #000000),
+        inset -4px -4px 8px color-mix(in srgb, var(--bg-color) 70%, #ffffff);
+
+    transition:
+        transform 0.12s ease,
+        box-shadow 0.12s ease;
+}
+
+/* Keeps corners rounded cleanly */
+body {
+    clip-path: inset(0 round 22px);
+}
+
+/* Pressed State */
+.carved-button:active {
+    transform: scale(0.985);
+
+    /* Sinks deeper into the screen on tap */
+    box-shadow:
+        inset 7px 7px 14px color-mix(in srgb, var(--bg-color) 25%, #000000),
+        inset -3px -3px 6px color-mix(in srgb, var(--bg-color) 80%, #ffffff);
+}
+
+.carved-button:focus {
+    outline: none;
+}
+</style>
+</head>
+
+<body>
+
+<button
+    class="carved-button"
+    aria-label="Button"
+    onclick="buttonPressed()">
+</button>
+
+<script>
+function buttonPressed() {
+    // Your action here
+}
+</script>
+
+</body>
+</html>
